@@ -11,11 +11,13 @@ class Ball {
     this.effect = effect;
     this.x = this.effect.width * 0.5;
     this.y = this.effect.height * 0.5;
-    this.radius = 50;
-    this.speedX = 1;
-    this.speedY = 1;
+    this.radius = Math.random() * 80 + 20;
+    this.speedX = Math.random() - 0.5;
+    this.speedY = Math.random() - 0.5;
   }
   update() {
+    if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
+    if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
     this.x += this.speedX;
     this.y += this.speedY;
   }
@@ -53,7 +55,7 @@ effect.init(20);
 
 
 function animate() {
-
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   effect.update();
   effect.draw(ctx);
   requestAnimationFrame(animate);
